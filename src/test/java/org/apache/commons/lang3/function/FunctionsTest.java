@@ -18,11 +18,35 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link Functions}.
+ */
 public class FunctionsTest {
 
+    /**
+     * Tests {@link Functions#apply(Function, Object)}.
+     */
+    @Test
+    public void testApply() {
+        final AtomicBoolean bool = new AtomicBoolean();
+        assertFalse(Functions.apply(bool::getAndSet, true));
+        assertTrue(bool.get());
+        assertNull(Functions.apply(null, "foo"));
+        assertNull(Functions.apply(null, null));
+    }
+
+    /**
+     * Tests {@link Functions#function(Function)}.
+     */
     @Test
     public void testFunction() {
         assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));

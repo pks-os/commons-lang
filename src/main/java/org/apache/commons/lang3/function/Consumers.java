@@ -32,10 +32,25 @@ public class Consumers {
     private static final Consumer NOP = Function.identity()::apply;
 
     /**
+     * Applies the given {@link Consumer} action to the object if the consumer is not {@code null}. Otherwise, does nothing.
+     *
+     * @param consumer the consumer to consume.
+     * @param object   the object to be consumed.
+     *
+     * @param <T>      the type of the argument the consumer accepts.
+     * @since 3.15.0
+     */
+    public static <T> void accept(final Consumer<T> consumer, final T object) {
+        if (consumer != null) {
+            consumer.accept(object);
+        }
+    }
+
+    /**
      * Gets the NOP Consumer singleton.
      *
      * @param <T> type type to consume.
-     * @return the NOP Consumer singleton..
+     * @return the NOP Consumer singleton.
      */
     @SuppressWarnings("unchecked")
     public static <T> Consumer<T> nop() {
@@ -45,5 +60,4 @@ public class Consumers {
     private Consumers() {
         // No instances.
     }
-
 }

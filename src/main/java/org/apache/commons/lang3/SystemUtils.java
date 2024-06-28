@@ -1145,6 +1145,20 @@ public class SystemUtils {
     public static final boolean IS_OS_AIX = getOsMatchesName("AIX");
 
     /**
+     * Is {@code true} if this is Android.
+     *
+     * <p>
+     * See https://developer.android.com/reference/java/lang/System#getProperties().
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     *
+     * @since 3.15.0
+     */
+    public static final boolean IS_OS_ANDROID = SystemProperties.getJavaVendor().contains("Android");
+
+    /**
      * Is {@code true} if this is HP-UX.
      *
      * <p>
@@ -1491,6 +1505,19 @@ public class SystemUtils {
      * @since 3.13.0
      */
     public static final boolean IS_OS_MAC_OSX_VENTURA = getOsMatches("Mac OS X", "13");
+
+    /**
+     * Is {@code true} if this is macOS X Sonoma.
+     *
+     * <p>
+     * The field will return {@code false} if {@code OS_NAME} is {@code null}.
+     * </p>
+     * <p>
+     * This value is initialized when the class is loaded.
+     * </p>
+     * @since 3.15.0
+     */
+    public static final boolean IS_OS_MAC_OSX_SONOMA = getOsMatches("Mac OS X", "14");
 
     /**
      * Is {@code true} if this is FreeBSD.

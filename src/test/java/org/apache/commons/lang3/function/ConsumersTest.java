@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -27,6 +30,18 @@ import org.junit.jupiter.api.Test;
  * Tests {@link Consumers}.
  */
 public class ConsumersTest extends AbstractLangTest {
+
+    /**
+     * Tests {@link Consumers#accept(Consumer, Object)}.
+     */
+    @Test
+    public void testAccept() {
+        final AtomicBoolean bool = new AtomicBoolean();
+        Consumers.accept(bool::set, true);
+        assertTrue(bool.get());
+        Consumers.accept(null, "");
+        Consumers.accept(null, null);
+    }
 
     /**
      * Tests {@link Consumers#nop()}.
@@ -45,5 +60,4 @@ public class ConsumersTest extends AbstractLangTest {
         Consumers.nop().accept(null);
         Consumers.nop().accept("");
     }
-
 }

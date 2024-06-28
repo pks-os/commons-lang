@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -102,6 +103,11 @@ public class PairTest extends AbstractLangTest {
     }
 
     @Test
+    public void testConcurrentHashMapEntry() {
+        testMapEntry(new ConcurrentHashMap<>());
+    }
+
+    @Test
     public void testEmptyArrayGenerics() {
         final Pair<Integer, String>[] empty = Pair.emptyArray();
         assertEquals(0, empty.length);
@@ -127,13 +133,25 @@ public class PairTest extends AbstractLangTest {
     }
 
     @Test
-    public void testMapEntry() {
-        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
-        final HashMap<Integer, String> map = new HashMap<>();
+    public void testHashMapEntry() {
+        testMapEntry(new HashMap<>());
+    }
+
+    private void testMapEntry(final Map<Integer, String> map) {
         map.put(0, "foo");
         final Entry<Integer, String> entry = map.entrySet().iterator().next();
+        final Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(pair, entry);
         assertEquals(pair.hashCode(), entry.hashCode());
+        // LANG-1736:
+        map.clear();
+        map.put(0, "value1");
+        map.put(1, "value2");
+        map.entrySet().forEach(e -> {
+            final Pair<Integer, String> p = ImmutablePair.of(e.getKey(), e.getValue());
+            assertEquals(p, e);
+            assertEquals(p.hashCode(), e.hashCode());
+        });
     }
 
     @Test

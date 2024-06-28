@@ -19,7 +19,6 @@ package org.apache.commons.lang3.exception;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
  * Provides utilities for manipulating and examining
@@ -248,17 +248,11 @@ public class ExceptionUtils {
     // TODO: Remove in Lang 4
     private static Throwable getCauseUsingMethodName(final Throwable throwable, final String methodName) {
         if (methodName != null) {
-            Method method = null;
-            try {
-                method = throwable.getClass().getMethod(methodName);
-            } catch (final NoSuchMethodException | SecurityException ignored) {
-                // exception ignored
-            }
-
+            Method method = MethodUtils.getMethodObject(throwable.getClass(), methodName);
             if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
                 try {
                     return (Throwable) method.invoke(throwable);
-                } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) {
+                } catch (final ReflectiveOperationException ignored) {
                     // exception ignored
                 }
             }

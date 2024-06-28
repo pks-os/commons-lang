@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>69</version>
+    <version>71</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -80,7 +80,7 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>5.2.0</version>
+      <version>5.3.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -190,7 +190,10 @@
           <version>${commons.pmd.version}</version>
           <configuration>
             <targetJdk>${maven.compiler.target}</targetJdk>
-            <excludeFromFailureFile>src/conf/exclude-pmd.properties</excludeFromFailureFile>
+            <excludeFromFailureFile>src/conf/pmd-exclude.properties</excludeFromFailureFile>
+            <rulesets>
+              <ruleset>src/conf/pmd-ruleset.xml</ruleset>
+            </rulesets>
           </configuration>
         </plugin>
         <plugin>
@@ -217,7 +220,6 @@
             <notimestamp>true</notimestamp>
             <links>
               <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-              <link>https://docs.oracle.com/javase/8/docs/api</link>
               <link>https://docs.oracle.com/javaee/6/api</link>
             </links>
             <validateLinks>true</validateLinks>
@@ -323,7 +325,6 @@
           <notimestamp>true</notimestamp>
           <links>
             <link>https://commons.apache.org/proper/commons-text/apidocs</link>
-            <link>https://docs.oracle.com/javase/8/docs/api</link>
             <link>https://docs.oracle.com/javaee/6/api</link>
           </links>
           <validateLinks>true</validateLinks>
@@ -499,7 +500,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>3.2.0</version>
+            <version>3.3.0</version>
             <executions>
               <execution>
                 <id>benchmark</id>

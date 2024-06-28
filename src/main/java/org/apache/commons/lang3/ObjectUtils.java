@@ -19,8 +19,6 @@ package org.apache.commons.lang3;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -114,7 +112,7 @@ public class ObjectUtils {
     public static final Null NULL = new Null();
 
     /**
-     * Checks if all values in the array are not {@code nulls}.
+     * Tests if all values in the array are not {@code nulls}.
      *
      * <p>
      * If any value is {@code null} or the array is {@code null} then
@@ -143,7 +141,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if all values in the given array are {@code null}.
+     * Tests if all values in the given array are {@code null}.
      *
      * <p>
      * If all the values are {@code null} or the array is {@code null}
@@ -169,7 +167,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if any value in the given array is not {@code null}.
+     * Tests if any value in the given array is not {@code null}.
      *
      * <p>
      * If all the values are {@code null} or the array is {@code null}
@@ -196,7 +194,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Checks if any value in the given array is {@code null}.
+     * Tests if any value in the given array is {@code null}.
      *
      * <p>
      * If any of the values are {@code null} or the array is {@code null},
@@ -224,7 +222,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Clone an object.
+     * Clones an object.
      *
      * @param <T> the type of the object
      * @param obj  the object to clone, null returns null
@@ -235,8 +233,9 @@ public class ObjectUtils {
     public static <T> T clone(final T obj) {
         if (obj instanceof Cloneable) {
             final Object result;
+            final Class<? extends Object> objClass = obj.getClass();
             if (isArray(obj)) {
-                final Class<?> componentType = obj.getClass().getComponentType();
+                final Class<?> componentType = objClass.getComponentType();
                 if (componentType.isPrimitive()) {
                     int length = Array.getLength(obj);
                     result = Array.newInstance(componentType, length);
@@ -248,18 +247,9 @@ public class ObjectUtils {
                 }
             } else {
                 try {
-                    final Method clone = obj.getClass().getMethod("clone");
-                    result = clone.invoke(obj);
-                } catch (final NoSuchMethodException e) {
-                    throw new CloneFailedException("Cloneable type "
-                        + obj.getClass().getName()
-                        + " has no clone method", e);
-                } catch (final IllegalAccessException e) {
-                    throw new CloneFailedException("Cannot clone Cloneable type "
-                        + obj.getClass().getName(), e);
-                } catch (final InvocationTargetException e) {
-                    throw new CloneFailedException("Exception cloning Cloneable type "
-                        + obj.getClass().getName(), e.getCause());
+                    result = objClass.getMethod("clone").invoke(obj);
+                } catch (final ReflectiveOperationException e) {
+                    throw new CloneFailedException("Exception cloning Cloneable type " + objClass.getName(), e);
                 }
             }
             return (T) result;
@@ -269,7 +259,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Clone an object if possible.
+     * Clones an object if possible.
      *
      * <p>This method is similar to {@link #clone(Object)}, but will return the provided
      * instance as the return value instead of {@code null} if the instance
@@ -332,7 +322,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -353,7 +343,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -374,7 +364,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -395,7 +385,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -416,7 +406,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -437,7 +427,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -458,7 +448,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -479,7 +469,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -500,7 +490,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -522,7 +512,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -549,7 +539,7 @@ public class ObjectUtils {
     }
 
     /**
-     * This method returns the provided value unchanged.
+     * Returns the provided value unchanged.
      * This can prevent javac from inlining a constant
      * field, e.g.,
      *
@@ -689,7 +679,7 @@ public class ObjectUtils {
      */
     @SafeVarargs
     public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
-        return Streams.of(suppliers).map(s -> s != null ? s.get() : null).filter(Objects::nonNull).findFirst().orElse(null);
+        return Streams.of(suppliers).filter(Objects::nonNull).map(Supplier::get).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
@@ -1284,6 +1274,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
      *
+     * @see Objects#toString(Object)
+     * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
@@ -1295,7 +1287,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static String toString(final Object obj) {
-        return obj == null ? StringUtils.EMPTY : obj.toString();
+        return Objects.toString(obj, StringUtils.EMPTY);
     }
 
     /**
@@ -1310,6 +1302,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      *
+     * @see Objects#toString(Object)
+     * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
@@ -1321,7 +1315,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static String toString(final Object obj, final String nullStr) {
-        return obj == null ? nullStr : obj.toString();
+        return Objects.toString(obj, nullStr);
     }
 
     /**

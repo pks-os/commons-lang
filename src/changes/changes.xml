@@ -60,10 +60,14 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add T ArrayUtils.arraycopy(T, int, int, int, Function) fluent style.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_22.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_22.</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getLineSeparator(Supplier&lt;String&gt;).</action>
-    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add org.apache.commons.lang3.SystemProperties.getJavaSpecificationVersion(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getUserName(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getLineSeparator(Supplier&lt;String&gt;).</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties.getJavaSpecificationVersion(Supplier&lt;String&gt;).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemProperties constants and methods for system properties as of Java 22.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add MethodUtils.getMethodObject(Class, String, Class...).</action>
+    <action issue="LANG-1733" type="add" dev="ggregory" due-to="Jongjin Bae, Gary Gregory">Add null-safe Consumers.accept() and Functions.apply() #1215.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_ANDROID.</action>
+    <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_OS_MAC_OSX_SONOMA.</action>
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Miklós Karakó, Gary Gregory">Improve Javadoc in ExceptionUtils #1136.</action>
     <action                   type="fix" dev="ggregory" due-to="Saiharshith Karuneegar Ramesh, Gary Gregory">Fixed two non-deterministic tests in EnumUtilsTest.java #1131.</action>
@@ -126,10 +130,22 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Stephan Peters, Gary Gregory, Bernd">StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, etc. #1201.</action>
     <action issue="LANG-1524" type="fix" dev="ggregory" due-to="kijong.youn, Aakash Gupta, Gary Gregory">TypeUtils.toString(Type) StackOverflowError for an inner class in the inner class parameterized enclosing class #657.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate SystemUtils.getUserName(String) in favor of SystemProperties.getUserName(Supplier).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LockVisitor.acceptReadLocked(FailableConsumer) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LockVisitor.applyWriteLocked(FailableConsumer) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make ObjectUtils.getFirstNonNull(Supplier...) null-safe.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make SystemProperties.getLineSeparator(Supplier).</action>
+    <action                   type="fix" dev="ggregory" due-to="hunghhdev">StringUtils.stripAccents(String) doesn't handle "\u0111" and "\u0110" (Vietnamese) #1216.</action> 
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.stripAccents(String) doesn't handle I with bar.</action> 
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.stripAccents(String) doesn't handle U with bar.</action> 
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.stripAccents(String) doesn't handle T with stroke.</action> 
+    <action issue="LANG-1735" type="fix" dev="ggregory" due-to="Tobias Kiecker">Fix Javadoc for FluentBitSet.setInclusive(int, int) #1222.</action>
+    <action                   type="fix" dev="ggregory" due-to="Tobias Kiecker">Same Javadoc changes as [TEXT-234] #1223.</action>  
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Remove duplicate static data in SerializationUtils.ClassLoaderAwareObjectInputStream.</action> 
     <!-- UPDATE -->
-    <action                   type="update" dev="sebb" due-to="Dependabot">Bump commons-parent from 64 to 69 #1194.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.2.0 #1175.</action>
-    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-text from 1.11.0 to 1.12.0 #1200.</action> 
+    <action                   type="update" dev="sebb" due-to="Dependabot, Gary Gregory">Bump commons-parent from 64 to 71 #1194, #1233.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.3.0 #1175, #1224.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-text from 1.11.0 to 1.12.0 #1200.</action>
+    <action                   type="update" dev="ggregory" due-to="Dependabot">Bump org.easymock:easymock from 5.2.0 to 5.3.0 #1232.</action>
     <!-- REMOVE -->
     <action                   type="remove" dev="ggregory" due-to="Paranoïd User">Drop obsolete JDK 13 Maven profile #1142.</action>
   </release>
