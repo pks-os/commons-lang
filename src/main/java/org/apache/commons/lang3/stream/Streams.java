@@ -45,13 +45,11 @@ import org.apache.commons.lang3.function.FailableFunction;
 import org.apache.commons.lang3.function.FailablePredicate;
 
 /**
- * Provides utility functions, and classes for working with the {@link java.util.stream} package, or more generally,
- * with Java 8 lambdas. More specifically, it attempts to address the fact that lambdas are supposed not to throw
- * Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This enforces the use of constructs
- * like:
+ * Provides utility functions, and classes for working with the {@link java.util.stream} package, or more generally, with Java 8 lambdas. More specifically, it
+ * attempts to address the fact that lambdas are supposed not to throw Exceptions, at least not checked Exceptions, AKA instances of {@link Exception}. This
+ * enforces the use of constructs like:
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * Consumer<java.lang.reflect.Method> consumer = m -> {
  *     try {
  *         m.invoke(o, args);
@@ -60,20 +58,17 @@ import org.apache.commons.lang3.function.FailablePredicate;
  *     }
  * };
  * stream.forEach(consumer);
- * }
- * </pre>
+ * }</pre>
  * <p>
  * Using a {@link FailableStream}, this can be rewritten as follows:
  * </p>
  *
- * <pre>
- * {@code
- * Streams.failable(stream).forEach((m) -> m.invoke(o, args));
- * }
- * </pre>
- *
- * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than in the
- * first version.
+ * <pre>{@code
+ * Streams.failable(stream).forEach(m -> m.invoke(o, args));
+ * }</pre>
+ * <p>
+ * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than in the first version.
+ * </p>
  *
  * @see Stream
  * @see Failable
