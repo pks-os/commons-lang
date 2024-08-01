@@ -157,4 +157,14 @@ public class ArraySorter {
         return array;
     }
 
+    /**
+     * Constructs a new instance.
+     *
+     * @deprecated Will be removed in 4.0.0.
+     */
+    @Deprecated
+    public ArraySorter() {
+        // empty
+    }
+
 }
