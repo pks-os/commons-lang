@@ -720,7 +720,7 @@ public class StringUtils {
      */
     @Deprecated
     public static String chomp(final String str, final String separator) {
-        return removeEnd(str, separator);
+        return Strings.CS.removeEnd(str, separator);
     }
 
     /**
@@ -1717,7 +1717,7 @@ public class StringUtils {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (endsWith(sequence, searchString)) {
+            if (Strings.CS.endsWith(sequence, searchString)) {
                 return true;
             }
         }
@@ -2529,7 +2529,7 @@ public class StringUtils {
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
-        return Strings.CS.indexOf(seq, searchSeq, 0);
+        return Strings.CS.indexOf(seq, searchSeq);
     }
 
     /**
@@ -2564,7 +2564,7 @@ public class StringUtils {
      *  -1 if no match or {@code null} string input
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
-     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}
+     * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}
      */
     @Deprecated
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -3061,7 +3061,7 @@ public class StringUtils {
      */
     @Deprecated
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
-        return Strings.CI.indexOf(str, searchStr, 0);
+        return Strings.CI.indexOf(str, searchStr);
     }
 
     /**
@@ -5711,7 +5711,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
-        return replace(str, remove, EMPTY, -1);
+        return Strings.CS.replace(str, remove, EMPTY, -1);
     }
 
     /**
@@ -5907,7 +5907,7 @@ public class StringUtils {
      * @since 3.5
      */
     public static String removeIgnoreCase(final String str, final String remove) {
-        return replaceIgnoreCase(str, remove, EMPTY, -1);
+        return Strings.CI.replace(str, remove, EMPTY, -1);
     }
 
     /**
@@ -6148,7 +6148,7 @@ public class StringUtils {
         }
         // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
         final String result = repeat(str + separator, repeat);
-        return removeEnd(result, separator);
+        return Strings.CS.removeEnd(result, separator);
     }
 
     /**
@@ -7833,7 +7833,7 @@ public class StringUtils {
             return false;
         }
         for (final CharSequence searchString : searchStrings) {
-            if (startsWith(sequence, searchString)) {
+            if (Strings.CS.startsWith(sequence, searchString)) {
                 return true;
             }
         }
@@ -9116,7 +9116,7 @@ public class StringUtils {
             return str;
         }
 
-        if (startsWith(str, wrapToken) && endsWith(str, wrapToken)) {
+        if (Strings.CS.startsWith(str, wrapToken) && Strings.CS.endsWith(str, wrapToken)) {
             return str.substring(wrapToken.length(), str.lastIndexOf(wrapToken));
         }
 
