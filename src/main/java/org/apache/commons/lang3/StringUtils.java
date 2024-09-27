@@ -1711,17 +1711,11 @@ public class StringUtils {
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
      *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
      * @since 3.0
+     * @deprecated Use {@link Strings#endsWithAny(CharSequence, CharSequence...) Strings.CS.endsWithAny(CharSequence, CharSequence...)}
      */
+    @Deprecated
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (Strings.CS.endsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.endsWithAny(sequence, searchStrings);
     }
 
     /**
@@ -5706,12 +5700,11 @@ public class StringUtils {
      * @return the substring with the string removed if found,
      *  {@code null} if null String input
      * @since 2.1
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}
      */
+    @Deprecated
     public static String remove(final String str, final String remove) {
-        if (isEmpty(str) || isEmpty(remove)) {
-            return str;
-        }
-        return Strings.CS.replace(str, remove, EMPTY, -1);
+        return Strings.CS.remove(str, remove);
     }
 
     /**
@@ -5905,9 +5898,11 @@ public class StringUtils {
      * @return the substring with the string removed if found, {@code null} if
      *         null String input
      * @since 3.5
+     * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}
      */
+    @Deprecated
     public static String removeIgnoreCase(final String str, final String remove) {
-        return Strings.CI.replace(str, remove, EMPTY, -1);
+        return Strings.CI.remove(str, remove);
     }
 
     /**
@@ -7779,7 +7774,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with a specified prefix.
+     * Tests if a CharSequence starts with a specified prefix.
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case-sensitive.</p>
@@ -7807,7 +7802,7 @@ public class StringUtils {
     }
 
     /**
-     * Check if a CharSequence starts with any of the provided case-sensitive prefixes.
+     * Tests if a CharSequence starts with any of the provided case-sensitive prefixes.
      *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
@@ -7827,17 +7822,11 @@ public class StringUtils {
      *   the input {@code sequence} begins with any of the provided case-sensitive {@code searchStrings}.
      * @since 2.5
      * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
+     * @deprecated Use {@link Strings#startsWithAny(CharSequence, CharSequence...) Strings.CI.startsWithAny(CharSequence, CharSequence...)}
      */
+    @Deprecated
     public static boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
-        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
-            return false;
-        }
-        for (final CharSequence searchString : searchStrings) {
-            if (Strings.CS.startsWith(sequence, searchString)) {
-                return true;
-            }
-        }
-        return false;
+        return Strings.CS.startsWithAny(sequence, searchStrings);
     }
 
     /**
