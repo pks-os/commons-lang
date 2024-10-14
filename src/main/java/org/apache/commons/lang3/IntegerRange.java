@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3;
 
+import java.util.stream.IntStream;
+
 /**
  * Specializes {@link NumberRange} for {@link Integer}s.
  *
@@ -31,7 +33,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
@@ -50,7 +52,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     }
 
     /**
-     * Creates a range with the specified minimum and maximum values (both inclusive).
+     * Creates a closed range with the specified minimum and maximum values (both inclusive).
      *
      * <p>
      * The range uses the natural ordering of the elements to determine where values lie in the range.
@@ -70,7 +72,7 @@ public final class IntegerRange extends NumberRange<Integer> {
     }
 
     /**
-     * Creates an instance.
+     * Creates a new instance.
      *
      * @param number1 the first element, not null
      * @param number2 the second element, not null
@@ -81,4 +83,14 @@ public final class IntegerRange extends NumberRange<Integer> {
         super(number1, number2, null);
     }
 
+    /**
+     * Returns a sequential ordered {@code IntStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
+     * {@code 1}.
+     *
+     * @return a sequential {@code IntStream} for the range of {@code int} elements
+     * @since 3.18.0
+     */
+    public IntStream toIntStream() {
+        return IntStream.rangeClosed(getMinimum(), getMaximum());
+    }
 }
