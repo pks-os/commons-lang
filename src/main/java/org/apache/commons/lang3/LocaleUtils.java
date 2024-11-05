@@ -136,7 +136,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Checks whether the given String is a ISO 3166 alpha-2 country code.
+     * Tests whether the given String is a ISO 3166 alpha-2 country code.
      *
      * @param str the String to check
      * @return true, is the given String is a ISO 3166 compliant country code.
@@ -146,7 +146,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Checks whether the given String is a ISO 639 compliant language code.
+     * Tests whether the given String is a ISO 639 compliant language code.
      *
      * @param str the String to check.
      * @return true, if the given String is a ISO 639 compliant language code.
@@ -158,7 +158,7 @@ public class LocaleUtils {
     /**
      * Tests whether a Locale's language is undetermined.
      * <p>
-     * A Locale's language tag is undetermined if it's value is {@code "und"}. If a language is empty, or not well-formed (for example, "a" or"e2"), it will be
+     * A Locale's language tag is undetermined if it's value is {@code "und"}. If a language is empty, or not well-formed (for example, "a" or "e2"), it will be
      * equal to {@code "und"}.
      * </p>
      *
@@ -172,7 +172,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Checks whether the given String is a UN M.49 numeric area code.
+     * TestsNo whether the given String is a UN M.49 numeric area code.
      *
      * @param str the String to check
      * @return true, is the given String is a UN M.49 numeric area code.
