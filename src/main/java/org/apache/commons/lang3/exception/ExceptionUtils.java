@@ -33,6 +33,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.commons.lang3.util.IterableStringTokenizer;
 
 /**
  * Provides utilities for manipulating and examining
@@ -385,13 +386,12 @@ public class ExceptionUtils {
     }
 
     /**
-     * Gets a {@link List} of stack frames - the message
+     * Gets a {@link List} of stack frames, the message
      * is not included. Only the trace of the specified exception is
      * returned, any caused by trace is stripped.
      *
-     * <p>This works in most cases - it will only fail if the exception
-     * message contains a line that starts with:
-     * {@code &quot;&nbsp;&nbsp;&nbsp;at&quot;.}</p>
+     * <p>This works in most cases and will only fail if the exception
+     * message contains a line that starts with: {@code "<whitespace>at"}.</p>
      *
      * @param throwable is any throwable
      * @return List of stack frames
@@ -404,7 +404,7 @@ public class ExceptionUtils {
         boolean traceStarted = false;
         while (frames.hasMoreTokens()) {
             final String token = frames.nextToken();
-            // Determine if the line starts with <whitespace>at
+            // Determine if the line starts with "<whitespace>at"
             final int at = token.indexOf("at");
             if (at != NOT_FOUND && token.substring(0, at).trim().isEmpty()) {
                 traceStarted = true;
@@ -425,13 +425,7 @@ public class ExceptionUtils {
      * @return an array where each element is a line from the argument
      */
     static String[] getStackFrames(final String stackTrace) {
-        final String linebreak = System.lineSeparator();
-        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<>();
-        while (frames.hasMoreTokens()) {
-            list.add(frames.nextToken());
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return new IterableStringTokenizer(stackTrace, System.lineSeparator()).toArray();
     }
 
     /**
